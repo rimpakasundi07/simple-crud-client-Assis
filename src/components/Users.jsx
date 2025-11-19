@@ -41,6 +41,11 @@ const Users = ({ usersPromise }) => {
       .then((res) => res.json())
       .then((data) => {
         console.log("after delete", data);
+        if (data.deletedCount) {
+          alert("deleted successfully");
+          const reamining = users.filter((user) => user._id !== id);
+          setUsers(reamining);
+        }
       });
   };
 
