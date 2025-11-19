@@ -3,6 +3,7 @@ import React, { use, useState } from "react";
 const Users = ({ usersPromise }) => {
   const initialUsers = use(usersPromise);
   const [users, setUsers] = useState(initialUsers);
+
   const handleAddUser = (e) => {
     e.preventDefault();
     const name = e.target.name.value;
@@ -31,8 +32,21 @@ const Users = ({ usersPromise }) => {
         }
       });
   };
+
+  const handleDelete = (id) => {
+    console.log("Delete a User", id);
+    fetch(`http://localhost:3000/users/${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("after delete", data);
+      });
+  };
+
   return (
     <div>
+      <h2> Users: {users.length} </h2>
       <form onSubmit={handleAddUser}>
         <input type="text" name="name" id="" />
         <br></br>
@@ -40,12 +54,12 @@ const Users = ({ usersPromise }) => {
         <br></br>
         <input type="submit" value="Add User" />
       </form>
-      <p>-----------------------------------</p>
+      <p>----------------------------------------------</p>
       <div className="">
         {users.map((user) => (
           <p key={user._id}>
             {user.name} : {user.email}
-            <button>Submit</button>
+            <button onClick={() => handleDelete(user._id)}>Delete</button>
           </p>
         ))}
       </div>
