@@ -22,6 +22,10 @@ const Users = ({ usersPromise }) => {
       .then((data) => {
         console.log("after saving user", data);
         if (data.insertedId) {
+          newUser._id = data.insertedId;
+          const newUsers = [...users, newUser];
+          setUsers(newUsers);
+
           alert("users added successfully");
           e.target.reset();
         }
@@ -41,6 +45,7 @@ const Users = ({ usersPromise }) => {
         {users.map((user) => (
           <p key={user._id}>
             {user.name} : {user.email}
+            <button>Submit</button>
           </p>
         ))}
       </div>
