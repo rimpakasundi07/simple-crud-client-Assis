@@ -5,11 +5,17 @@ import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import App from "./App.jsx";
 import Users from "./components/Users.jsx";
+import UserDetail from "./components/UserDetail.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     Component: App,
+  },
+  {
+    path: "users/:id",
+    loader: ({ params }) => fetch(`http://localhost:3000/users/${params.id}`),
+    Component: UserDetail,
   },
 ]);
 createRoot(document.getElementById("root")).render(
