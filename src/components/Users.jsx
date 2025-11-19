@@ -1,6 +1,8 @@
-import React from "react";
+import React, { use, useState } from "react";
 
-const Users = () => {
+const Users = ({ usersPromise }) => {
+  const initialUsers = use(usersPromise);
+  const [users, setUsers] = useState(initialUsers);
   const handleAddUser = (e) => {
     e.preventDefault();
     const name = e.target.name.value;
@@ -34,6 +36,14 @@ const Users = () => {
         <br></br>
         <input type="submit" value="Add User" />
       </form>
+      <p>-----------------------------------</p>
+      <div className="">
+        {users.map((user) => (
+          <p key={user._id}>
+            {user.name} : {user.email}
+          </p>
+        ))}
+      </div>
     </div>
   );
 };
