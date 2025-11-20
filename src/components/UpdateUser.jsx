@@ -10,6 +10,20 @@ const UpdateUser = () => {
     const name = e.target.name.value;
     const email = e.target.email.value;
     console.log(name, email);
+    const updatedUser = { name, email };
+
+    // send data to the server
+    fetch(``, {
+      method: "PATCH",
+      header: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(),
+    })
+      .then((res) => res.json(updatedUser))
+      .then((data) => {
+        console.log("after update", data);
+      });
   };
 
   return (
